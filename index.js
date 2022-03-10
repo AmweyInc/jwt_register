@@ -10,7 +10,7 @@ const UserController = require("./controllers/User-controller.js");
 // Const statements
 const app = express();
 const PORT = 7000
-const DB_URL = 'mongodb+srv://Amwey1337:root@cluster0.n26e8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const DB_URL = 'mongodb+srv://Amwey1337:root@cluster0.n26e8.mongodb.net/jwtreg?retryWrites=true&w=majority'
 
 // Using statements
 app.use(express.json());
@@ -24,8 +24,8 @@ const startServer = async () => {
     try {
         console.log(DB_URL);
         await mongoose.connect(DB_URL,{
-            useNewUrlParser:true,
-            useUnifiedTopology:true
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
         });
         app.listen(PORT,() => console.log(`Server started on PORT = ${PORT}`));
     }catch (error){

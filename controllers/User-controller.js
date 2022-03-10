@@ -6,11 +6,10 @@ class UserController {
         try {
             const {email,password} = req.body;
             const userData = await userService.registration(email,password);
-
             res.cookie('refreshToken',userData.refreshToken,{maxAge:mAge,httpOnly:true})
             return res.json(userData);
         }catch (e){
-
+            console.log("code:204")
         }
     }
     async login(req,res,next){
