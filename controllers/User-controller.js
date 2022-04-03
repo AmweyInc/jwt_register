@@ -1,5 +1,6 @@
 const userService = require('../service/user-service.js')
 const mAge = 30 * 24 * 60 * 60 * 1000;
+const CLIENT_URL = 'https://godbolt.org';
 class UserController {
 
      async registration(req,res,next){
@@ -9,7 +10,7 @@ class UserController {
             res.cookie('refreshToken',userData.refreshToken,{maxAge:mAge,httpOnly:true})
             return res.json(userData);
         }catch (e){
-            console.log("code:204")
+            console.log(e)
         }
     }
     async login(req,res,next){
@@ -28,7 +29,9 @@ class UserController {
     }
     async activate(req,res,next){
         try {
-
+            const activationLink = req.params.link;
+            await userService.activate(activationLink);
+            return res.redirect(CLIENT_URL);
         }catch (e){
 
         }

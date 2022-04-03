@@ -4,7 +4,6 @@ const ACCESS_TOKEN = 'mydream';
 const REFRESH_TOKEN = 'life';
 
 
-
 class TokenService {
     generateTokens(payload){
         const accessToken = jwt.sign(payload,ACCESS_TOKEN,{expiresIn: '30m'});

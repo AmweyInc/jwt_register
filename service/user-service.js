@@ -1,16 +1,14 @@
-const UserModel = require('../models/user-model.js');
 const bCrypt = require('bcrypt');
 const uuid = require('uuid');
+
+const UserModel = require('../models/user-model.js');
 const mailService = require('./mail-service.js');
 const tokenService = require('./token-service.js');
 const UserDto = require('../dtos/user-dtos.js');
-/* Пробовал сделать заглушку вместо UserModel для теста,
-с использованием заглушки программа выполняется вся целиком.
-    const User = new Object();
-    User.email = 'mymail@mail.mymail';
-    User.id = 1;
-    User.isActivated = true;
-*/
+
+const API_URL = 'http://localhost:7000/'
+const CLIENT_URL = 'http://localhost:7000/'
+
 
 class UserService {
     async registration(email,password){
@@ -21,8 +19,8 @@ class UserService {
 
         const hashPassword = await bCrypt.hash(password,3);
         const activationLink = uuid.v4();
-        const user = await UserModel.create({email,hashPassword,activationLink}); // Входит сюда и дальше не продолжает действие,проверил много раз дебагером
-        await mailService.sendActivationMail(email,activationLink);
+        const user = await UserModel.create({email:email,password:hashPassword,ActivationLink:activationLink});
+        await mailService.sendActivationMail(email, `${API_URL}api/activate/${activationLink}`);
         const userDto = new UserDto(user);
         const tokens = tokenService.generateTokens({...userDto});
         await tokenService.saveToken(userDto.id,tokens.refreshToken);
@@ -30,6 +28,15 @@ class UserService {
             ...tokens,
             User:userDto
         }
+    }
+
+    async activate(activationLink){
+        const user = await UserModel.findOne({activationLink});
+        if (!user){
+            throw new Error('Некорректная ссылка активации')
+        }
+        user.isActivated = true;
+        await user.save();
     }
 }
 
