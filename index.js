@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const router = require('./routers/index.js');
 const UserController = require("./controllers/User-controller.js");
+const errorMiddlewares = require("./middlewares/error-middlewares.js")
+
 
 // Const statements
 const app = express();
@@ -17,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use('/api',router);
-
+app.use(errorMiddlewares);
 
 // Functional statements
 const startServer = async () => {
