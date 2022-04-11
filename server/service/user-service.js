@@ -8,7 +8,7 @@ const UserDto = require('../dtos/user-dtos.js');
 const ApiError = require("../exceptions/api-error.js")
 
 const API_URL = 'http://localhost:7000/'
-const CLIENT_URL = 'http://localhost:7000/'
+const CLIENT_URL = 'http://localhost:3000';
 
 
 class UserService {

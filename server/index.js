@@ -4,7 +4,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require("mongoose");
 const path = require("path");
-const router = require('./routers/index.js');
+const router = require('./routers');
 const UserController = require("./controllers/User-controller.js");
 const errorMiddlewares = require("./middlewares/error-middlewares.js")
 
@@ -13,11 +13,15 @@ const errorMiddlewares = require("./middlewares/error-middlewares.js")
 const app = express();
 const PORT = 7000
 const DB_URL = 'mongodb+srv://Amwey1337:root@cluster0.n26e8.mongodb.net/jwtreg?retryWrites=true&w=majority'
+const CLIENT_URL = 'http://localhost:3000';
 
 // Using statements
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    credentials:true,
+    origin: CLIENT_URL
+}));
 app.use('/api',router);
 app.use(errorMiddlewares);
 

@@ -6,6 +6,7 @@ const SMTP_PORT = 587;
 const SMTP_USER = 'X32sy3CKs9@gmail.com';
 const SMTP_PASSWORD = 'X32sy3CKs9123';
 const API_URL = 'http://localhost:7000/'
+const CLIENT_URL = 'http://localhost:3000';
 
 class MailService {
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "develop": "nodemon index.js"
+    "develop": "../node_modules/.bin/nodemon index.js"
   },
   "license": "MIT",
   "dependencies": {
